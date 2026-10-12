@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+    options { timestamps(); disableConcurrentBuilds() }
+    stages {
+        stage('Checkout') {
+            steps { checkout scm }
+        }
+        stage('Build') {
+            steps {
+                sh '''
+                    set -eu
+                    mkdir -p dist
+                    cp index.html style.css script.js dist/
+                '''
+            }
+        }
+        stage('Test') {
+            steps { sh 'bash tests/check-website.sh' }
+        }
+        stage('Archive') {
+            steps { archiveArtifacts artifacts: 'dist/**', fingerprint: true }
+        }
+    }
+    post {
+        success { echo 'Website build and validation succeeded.' }
+        failure { echo 'Build or validation failed.' }
+    }
+}

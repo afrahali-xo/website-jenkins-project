@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A sample website deployed with Jenkins CI/CD">
+  <title>LaunchPad | Jenkins CI/CD Demo</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header"><a class="logo" href="#home">Launch<span>Pad</span></a><nav aria-label="Main navigation"><a href="#features">Features</a><a href="#workflow">Workflow</a><a href="#contact">Contact</a></nav></header>
+  <main id="home"><section class="hero"><p class="eyebrow">BUILD • TEST • DEPLOY</p><h1>Your website, delivered <em>automatically.</em></h1><p class="intro">A clean demo website powered by GitHub and two Jenkins pipelines. Make a change, open a pull request, and watch CI work.</p><a class="button" href="#workflow">Explore the workflow →</a></section>
+  <section id="features" class="section"><h2>Built for a smooth workflow</h2><div class="cards"><article class="card"><div class="emoji">💻</div><h3>Code in VS Code</h3><p>Edit your HTML, CSS and JavaScript locally.</p></article><article class="card"><div class="emoji">🔁</div><h3>Push to GitHub</h3><p>Track changes and open pull requests for review.</p></article><article class="card"><div class="emoji">🚀</div><h3>Automate with Jenkins</h3><p>Run checks and deploy only after successful validation.</p></article></div></section>
+  <section id="workflow" class="section workflow"><h2>Two pipelines, one goal</h2><div class="steps"><div><span>01</span><h3>Build & Test</h3><p>PR updates trigger basic website validation.</p></div><div><span>02</span><h3>Deploy</h3><p>After merging to main and passing checks, publish to your web server.</p></div></div></section>
+  <section id="contact" class="section cta"><h2>Ready to try it?</h2><p>Click below to confirm JavaScript is working.</p><button id="demo-button" class="button" type="button">Test interaction</button><p id="demo-message" role="status" aria-live="polite"></p></section></main><footer>© <span id="year"></span> LaunchPad. Jenkins CI/CD demo.</footer>
+</body></html>

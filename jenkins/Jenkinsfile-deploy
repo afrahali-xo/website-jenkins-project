@@ -1,0 +1,39 @@
+// This job should be triggered ONLY after a successful main-branch build.
+// Configure the downstream trigger in Jenkins (see README).
+pipeline {
+    agent any
+    options { timestamps(); disableConcurrentBuilds() }
+    stages {
+        stage('Guard main branch') {
+            steps {
+                script {
+                    if (env.BRANCH_NAME != 'main') {
+                        error('Deployment is permitted only for main.')
+                    }
+                }
+            }
+        }
+        stage('Checkout') {
+            steps { checkout scm }
+        }
+        stage('Validate') {
+            steps { sh 'bash tests/check-website.sh' }
+        }
+        stage('Publish to local web root') {
+            steps {
+                // Set WEBSITE_DEPLOY_DIR as an environment variable on the Jenkins job/agent.
+                // The Jenkins agent needs write access to that directory.
+                sh '''
+                    set -eu
+                    : "${WEBSITE_DEPLOY_DIR:?Set WEBSITE_DEPLOY_DIR to the web server document root}"
+                    mkdir -p "$WEBSITE_DEPLOY_DIR"
+                    cp index.html style.css script.js "$WEBSITE_DEPLOY_DIR/"
+                '''
+            }
+        }
+    }
+    post {
+        success { echo 'Website files published to configured web root.' }
+        failure { echo 'Deployment failed.' }
+    }
+}
